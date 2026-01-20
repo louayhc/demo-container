@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "Verifying files existence"
+echo "---------------------------------------------------------------------------"
+
+if [[ -f "./Containerfile" && -f "./dataset.csv" && -f "./linear.py" ]]; then
+    echo "Files exist"
+else
+       echo "one or more file does not exsit"
+	exit 1
+fi 
+podman build -t demopython .
+podman run -v /$(pwd):/work:Z demopython  dataset.csv
+
+
+
